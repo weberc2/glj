@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -87,12 +88,13 @@ func main() {
 	}
 
 	if err := commits.ForEach(func(c *object.Commit) error {
-		data, err := json.Marshal(newCommit(c))
+		data, err := json.MarshalIndent(newCommit(c), "", "  ")
 		if err != nil {
-			log.Fatalf("Serializing commit: %# v", c)
+			return fmt.Errorf("Serializing commit: %# v", c)
 		}
-		_, err = os.Stdout.Write(data)
-		return err
+		os.Stdout.Write(data)
+		os.Stdout.Write([]byte("\n"))
+		return nil
 	}); err != nil {
 		log.Fatal(err)
 	}
