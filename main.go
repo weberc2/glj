@@ -21,14 +21,14 @@ import (
 )
 
 var (
-	Version string
+	version string
 )
 
 func main() {
 	app := &cli.App{
 		Name:    "glj",
 		Usage:   "JSON output for git log",
-		Version: Version,
+		Version: version,
 		Authors: []*cli.Author{{
 			Name:  "Craig Weber",
 			Email: "weberc2@gmail.com",
